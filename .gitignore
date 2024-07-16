@@ -1,2 +1,16 @@
+# Virtual environment
 .venv/
+
+# Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+
+# SQLite database file
 *.db
+
+# VSCode settings
+.vscode/
+
+# Uncomment if you want to ignore poetry.lock
+poetry.lock
