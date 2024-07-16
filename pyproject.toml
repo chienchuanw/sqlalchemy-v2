@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.12"
 sqlalchemy = "^2.0.31"
 alembic = "^1.13.2"
+rich = "^13.7.1"
 
 
 [build-system]
