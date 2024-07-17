@@ -33,4 +33,4 @@ def delete_patient(patient_id):
 
 if __name__ == "__main__":
     # delete_hospital(2)
-    delete_patient(1)
+    delete_patient(2)

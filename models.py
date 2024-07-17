@@ -18,7 +18,7 @@ class GenderEnum(enum.Enum):
 class Hospital(Base):
     __tablename__ = "hospitals"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     address: Mapped[str] = mapped_column(String, nullable=False)
     doctors: Mapped[List["Doctor"]] = relationship("Doctor", back_populates="hospital")
@@ -33,7 +33,7 @@ class Hospital(Base):
 class Doctor(Base):
     __tablename__ = "doctors"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     gender: Mapped["GenderEnum"] = mapped_column(Enum(GenderEnum), nullable=False)
     email: Mapped[Optional[str]] = mapped_column(String)
@@ -50,7 +50,7 @@ class Doctor(Base):
 class Patient(Base):
     __tablename__ = "patients"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     gender: Mapped["GenderEnum"] = mapped_column(Enum(GenderEnum), nullable=False)
     # age: Mapped[int] = mapped_column(Integer, nullable=False)
@@ -68,11 +68,11 @@ class Patient(Base):
 
         # Check whether birthday is passed in the current year or not.
         # True == 1, False == 0
-        birthday_passed = (today.month, today.day) > (
+        birthday_passed = (today.month, today.day) < (
             self.birthday.month,
             self.birthday.day,
         )
-        return (today.year - self.birthday.year) + birthday_passed
+        return (today.year - self.birthday.year) - birthday_passed
 
     def __repr__(self) -> str:
         return f"Patient(id={self.id}, name='{self.name}', age={self.age})"

@@ -62,4 +62,5 @@ def insert_patient(name, gender, birthday):
 if __name__ == "__main__":
     # insert_hospital("General Hospital", "123 Main St")
     # insert_doctor("Dr. Smith", GenderEnum.Male, "dr.smith@example.com", 1)
-    insert_patient("John Doe", GenderEnum.Male, "2000-01-01")
+    # insert_patient("John Doe", GenderEnum.Male, "2000-01-01")
+    insert_patient("Peter Su", GenderEnum.Male, "1995-03-05")
