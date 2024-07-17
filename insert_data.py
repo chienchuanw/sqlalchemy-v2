@@ -1,6 +1,7 @@
 from database import SessionLocal
 from models import Hospital, Doctor, Patient, GenderEnum
 import logging
+from datetime import datetime
 
 
 # Use `with` statement to close session properly
@@ -38,6 +39,27 @@ def insert_doctor(name, gender, email, hospital_id):
         session.close()
 
 
+def insert_patient(name, gender, birthday):
+    try:
+        with SessionLocal() as session:
+            # Convert the birthday string to a date object
+            date_format = "%Y-%m-%d"
+            birthday_date_object = datetime.strptime(birthday, date_format)
+
+            new_patient = Patient(
+                name=name, gender=gender, birthday=birthday_date_object
+            )
+
+            session.add(new_patient)
+            session.commit()
+
+            logging.info(f"Patient '{name}' inserted successfully.")
+
+    except Exception as e:
+        logging.error(f"Error inserting patient: {e}")
+
+
 if __name__ == "__main__":
-    insert_hospital("General Hospital", "123 Main St")
-    insert_doctor("Dr. Smith", GenderEnum.Male, "dr.smith@example.com", 1)
+    # insert_hospital("General Hospital", "123 Main St")
+    # insert_doctor("Dr. Smith", GenderEnum.Male, "dr.smith@example.com", 1)
+    insert_patient("John Doe", GenderEnum.Male, "2000-01-01")

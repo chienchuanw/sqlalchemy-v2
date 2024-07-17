@@ -2,6 +2,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, Date, ForeignKey, Enum
 from typing import List, Optional
 import enum
+import datetime
 
 
 class Base(DeclarativeBase):
@@ -52,7 +53,7 @@ class Patient(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     gender: Mapped["GenderEnum"] = mapped_column(Enum(GenderEnum), nullable=False)
-    age: Mapped[int] = mapped_column(Integer, nullable=False)
+    # age: Mapped[int] = mapped_column(Integer, nullable=False)
     birthday: Mapped[Date] = mapped_column(Date, nullable=False)
     hospitals: Mapped[List["Hospital"]] = relationship(
         "Hospital", secondary="hospital_patient_association", back_populates="patients"
@@ -60,6 +61,18 @@ class Patient(Base):
     doctors: Mapped[List["Doctor"]] = relationship(
         "Doctor", secondary="doctor_patient_association", back_populates="patients"
     )
+
+    @property
+    def age(self) -> int:
+        today = datetime.date.today()
+
+        # Check whether birthday is passed in the current year or not.
+        # True == 1, False == 0
+        birthday_passed = (today.month, today.day) > (
+            self.birthday.month,
+            self.birthday.day,
+        )
+        return (today.year - self.birthday.year) + birthday_passed
 
     def __repr__(self) -> str:
         return f"Patient(id={self.id}, name='{self.name}', age={self.age})"
