@@ -1,6 +1,6 @@
 from database import SessionLocal
 import logging
-from models import Hospital, Patient
+from models import Hospital, Patient, Doctor
 
 
 def select_all_hospitals():
@@ -33,6 +33,21 @@ def select_all_patients():
         logging.error(f"Error selecting patients: {e}")
 
 
+def select_all_doctors():
+    try:
+        with SessionLocal() as session:
+            doctors = session.query(Doctor).all()
+
+            for doctor in doctors:
+                logging.info(doctor)
+
+            logging.info(f"Total doctor number: {len(doctors)}")
+
+    except Exception as e:
+        logging.error(f"Error selecting doctors: {e}")
+
+
 if __name__ == "__main__":
     # select_all_hospitals()
-    select_all_patients()
+    # select_all_patients()
+    select_all_doctors()

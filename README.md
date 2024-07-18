@@ -1,5 +1,18 @@
 # SQLAlchemy 2.0 Tutorial
 
+## Index
+
+- [SQLAlchemy 2.0 Tutorial](#sqlalchemy-20-tutorial)
+  - [Index](#index)
+  - [Workflow](#workflow)
+    - [Step 1: Set up a project](#step-1-set-up-a-project)
+    - [Step 2: Initialize Alembic](#step-2-initialize-alembic)
+    - [Step 3: Create and apply migrations](#step-3-create-and-apply-migrations)
+    - [Step 4: Make changes to `models.py` and managing migrations](#step-4-make-changes-to-modelspy-and-managing-migrations)
+    - [Additional: Highlight Logs with Rich](#additional-highlight-logs-with-rich)
+    - [Additional: Install Faker to seed database with fake data](#additional-install-faker-to-seed-database-with-fake-data)
+  - [Tech Stack](#tech-stack)
+
 ## Workflow
 
 ### Step 1: Set up a project
@@ -8,7 +21,7 @@
 2. Create a virtual environment
 3. Install SQLAlchemy and Alembic  
 
-    - Install SQLAlchemy
+    - Install SQLAlchemy  
     `pip install SQLAlchemy`
     - Install Alembic  
     `pip install alembic`
@@ -44,7 +57,7 @@
     target_metadata = Base.metadata
     ```
 
-### Step 3: Create and Apply Migrations
+### Step 3: Create and apply migrations
 
 1. Create an initial migration  
     `alembic revision --autogenerate -m "Initial migration"`
@@ -52,7 +65,7 @@
 2. Apply the initial migration  
     `alembic upgrade head`
 
-### Step 4: Making Changes to Models and Managing Migrations
+### Step 4: Make changes to `models.py` and managing migrations
 
 1. Modify Your Models  
     Make some changes in your SQLAlchemy models which is usually located in `models.pys`
@@ -110,7 +123,7 @@
         logging.info("Database and tables created successfully.")
     ```
 
-### Install Faker to seed database with fake data
+### Additional: Install Faker to seed database with fake data
 
 Faker is a Python package that generates fake data for various purposes, such as names, addresses, dates, and more.
 
@@ -141,4 +154,12 @@ Faker is a Python package that generates fake data for various purposes, such as
             print(e)
     ```
 
-    Other usage can be found in the [official documentation](https://faker.readthedocs.io/en/master/).  
+    Other usage can be found in [Faker official documentation](https://faker.readthedocs.io/en/master/).  
+
+## Tech Stack
+
+- Python
+- SQLAlchemy
+- Alembic
+- Rich
+- Faker
