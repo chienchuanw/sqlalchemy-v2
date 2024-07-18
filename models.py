@@ -37,7 +37,7 @@ class Doctor(Base):
     name: Mapped[str] = mapped_column(String, nullable=False)
     gender: Mapped["GenderEnum"] = mapped_column(Enum(GenderEnum), nullable=False)
     email: Mapped[Optional[str]] = mapped_column(String)
-    hospital_id: Mapped[int] = mapped_column(ForeignKey("hospitals.id"), nullable=False)
+    hospital_id: Mapped[int] = mapped_column(ForeignKey("hospitals.id"), nullable=True)
     hospital: Mapped["Hospital"] = relationship("Hospital", back_populates="doctors")
     patients: Mapped[List["Patient"]] = relationship(
         "Patient", secondary="doctor_patient_association", back_populates="doctors"
@@ -62,6 +62,7 @@ class Patient(Base):
         "Doctor", secondary="doctor_patient_association", back_populates="patients"
     )
 
+    # With proper decorator, age can be query as a column. However it will not be display in the database.
     @property
     def age(self) -> int:
         today = datetime.date.today()
