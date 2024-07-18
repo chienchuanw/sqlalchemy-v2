@@ -53,7 +53,6 @@ class Patient(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     gender: Mapped["GenderEnum"] = mapped_column(Enum(GenderEnum), nullable=False)
-    # age: Mapped[int] = mapped_column(Integer, nullable=False)
     birthday: Mapped[Date] = mapped_column(Date, nullable=False)
     hospitals: Mapped[List["Hospital"]] = relationship(
         "Hospital", secondary="hospital_patient_association", back_populates="patients"

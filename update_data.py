@@ -1,6 +1,8 @@
 import logging
 from database import SessionLocal
-from models import Hospital, Doctor, GenderEnum
+from models import Hospital, Doctor, GenderEnum, Patient
+from sqlalchemy import Date
+from datetime import datetime
 
 
 def update_hospital(id: int, name: str = None, address: str = None) -> None:
@@ -63,6 +65,37 @@ def update_doctor(
         session.rollback()
 
 
+def update_patient(
+    id: int, name: str = None, gender: GenderEnum = None, birthday: Date = None
+) -> None:
+    try:
+        with SessionLocal() as session:
+            patient = session.query(Patient).filter_by(id=id).one_or_none()
+
+            if not patient:
+                logging.warning(f"Patient with id={id} not found.")
+                return None
+
+            if name:
+                patient.name = name
+
+            if gender:
+                patient.gender = gender
+
+            if birthday:
+                # Convert the birthday string to a date object
+                date_format = "%Y-%m-%d"
+                birthday_date_object = datetime.strptime(birthday, date_format)
+                patient.birthday = birthday_date_object
+
+            session.commit()
+            logging.info(f"Patient updated successfully: '{patient}'.")
+
+    except Exception as e:
+        logging.error(f"Error updating patient: {e}", exc_info=True)
+        session.rollback()
+
+
 if __name__ == "__main__":
     # update_hospital(
     #     1,
@@ -77,3 +110,5 @@ if __name__ == "__main__":
     #     email="susanjones@gamil.com",
     #     hospital_id=3,
     # )
+
+    update_patient(1, name="Frank Wang", gender=GenderEnum.Male, birthday="1994-07-21")
