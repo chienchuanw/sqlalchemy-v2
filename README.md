@@ -29,7 +29,7 @@
         > Alembic is a lightweight database migration tool for use with SQLAlchemy. It allows you to manage database schema changes in a version-controlled manner.
 
 4. Create a `models.py` for your ORM Models
-5. create a `database.py` for database connection
+5. Create a `database.py` for database connection
 
 ### Step 2: Initialize Alembic
 
@@ -158,8 +158,8 @@ Faker is a Python package that generates fake data for various purposes, such as
 
 ## Tech Stack
 
-- Python
-- SQLAlchemy
-- Alembic
-- Rich
-- Faker
+- Python: General-purpose programming language for writing code.  
+- SQLAlchemy: ORM for managing database connections and operations.  
+- Alembic: Database migration tool for SQLAlchemy.  
+- Rich: Library for rich text and formatting in the terminal.  
+- Faker: Library for generating fake data for testing.  

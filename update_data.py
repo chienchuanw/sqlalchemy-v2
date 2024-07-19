@@ -96,6 +96,15 @@ def update_patient(
         session.rollback()
 
 
+def update_patient_associating(id: int) -> None:
+    try:
+        with SessionLocal() as session:
+            pass
+
+    except Exception as e:
+        logging.error(f"Error updating patient association: {e}")
+
+
 if __name__ == "__main__":
     # update_hospital(
     #     1,
@@ -111,4 +120,5 @@ if __name__ == "__main__":
     #     hospital_id=3,
     # )
 
-    update_patient(1, name="Frank Wang", gender=GenderEnum.Male, birthday="1994-07-21")
+    # update_patient(1, name="Frank Wang", gender=GenderEnum.Male, birthday="1994-07-21")
+    pass
